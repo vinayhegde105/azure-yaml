@@ -1,0 +1,20 @@
+name: $(BuildDefinitionName)_$(date:yyyyMMdd)$(rev:.r)
+  
+pool: ownpool
+
+trigger:
+  batch: true 
+  branches:
+    include:
+      - main
+
+stages :
+  - stage: validate
+    jobs:
+    - job: validate
+      continueOnError: false
+      steps:
+      - task: TerraformInstaller@0
+        displayName: 'install'
+        inputs:
+          terraformVersion: '0.13.4'
